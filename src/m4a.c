@@ -5,7 +5,7 @@ extern const u8 gCgb3Vol[];
 
 IWRAM_DATA ALIGNED(4) char SoundMainRAM_Buffer[0x380] = {0};
 
-EWRAM_DATA struct SoundInfo gSoundInfo = {0}; // 0x980
+EWRAM_DATA struct SoundInfo gSoundInfo = {0};
 EWRAM_DATA MPlayFunc gMPlayJumpTable[36] = {0};
 EWRAM_DATA struct CgbChannel gCgbChans[4] = {0};
 EWRAM_DATA struct MusicPlayerInfo gUnknown_0201B4B0 = {0};

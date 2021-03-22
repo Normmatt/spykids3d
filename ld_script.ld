@@ -10,6 +10,8 @@ SECTIONS
     ALIGN(4)
     {
         data/ewram.o(ewram_data);
+        src/random.o(ewram_data);
+        data/ewram_02000394.o(ewram_data);
         src/m4a.o(ewram_data);
         data/ewram_2.o(ewram_data);
     }
@@ -29,6 +31,8 @@ SECTIONS
 	{
         asm/crt0.o(.text);
         asm/arm_80001CC.o(.text);
+        src/reset.o(.text);
+        src/random.o(.text);
         asm/code.o(.text);
         asm/m4a_asm.o(.text);
         src/m4a.o(.text);
