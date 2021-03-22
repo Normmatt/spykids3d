@@ -67,52 +67,69 @@ struct ToneData
     u8 release;
 };
 
+#define SOUND_CHANNEL_SF_START       0x80
+#define SOUND_CHANNEL_SF_STOP        0x40
+#define SOUND_CHANNEL_SF_LOOP        0x10
+#define SOUND_CHANNEL_SF_IEC         0x04
+#define SOUND_CHANNEL_SF_ENV         0x03
+#define SOUND_CHANNEL_SF_ENV_ATTACK  0x03
+#define SOUND_CHANNEL_SF_ENV_DECAY   0x02
+#define SOUND_CHANNEL_SF_ENV_SUSTAIN 0x01
+#define SOUND_CHANNEL_SF_ENV_RELEASE 0x00
+#define SOUND_CHANNEL_SF_ON (SOUND_CHANNEL_SF_START | SOUND_CHANNEL_SF_STOP | SOUND_CHANNEL_SF_IEC | SOUND_CHANNEL_SF_ENV)
+
+#define CGB_CHANNEL_MO_PIT  0x02
+#define CGB_CHANNEL_MO_VOL  0x01
+
+#define CGB_NRx2_ENV_DIR_DEC 0x00
+#define CGB_NRx2_ENV_DIR_INC 0x08
+
 struct CgbChannel
 {
-    u8 sf;
-    u8 ty;
+    u8 statusFlags;
+    u8 type;
     u8 rightVolume;
     u8 leftVolume;
-    u8 at;
-    u8 de;
-    u8 su;
-    u8 re;
-    u8 ky;
-    u8 ev;
-    u8 eg;
-    u8 ec;
-    u8 echoVolume;
-    u8 echoLength;
-    u8 d1;
-    u8 d2;
-    u8 gt;
-    u8 mk;
-    u8 ve;
-    u8 pr;
-    u8 rp;
-    u8 d3[3];
-    u8 d5;
-    u8 sg;
-    u8 n4;
+    u8 attack;
+    u8 decay;
+    u8 sustain;
+    u8 release;
+    u8 key;
+    u8 envelopeVolume;
+    u8 envelopeGoal;
+    u8 envelopeCounter;
+    u8 pseudoEchoVolume;
+    u8 pseudoEchoLength;
+    u8 dummy1;
+    u8 dummy2;
+    u8 gateTime;
+    u8 midiKey;
+    u8 velocity;
+    u8 priority;
+    u8 rhythmPan;
+    u8 dummy3[3];
+    u8 dummy5;
+    u8 sustainGoal;
+    u8 n4;                  // NR[1-4]4 register (initial, length bit)
     u8 pan;
     u8 panMask;
-    u8 mo;
-    u8 le;
-    u8 sw;
-    u32 fr;
-    u32 wp;
-    u32 cp;
-    u32 tp;
-    u32 pp;
-    u32 np;
-    u8 d4[8];
+    u8 modify;
+    u8 length;
+    u8 sweep;
+    u32 frequency;
+    u32 *wavePointer;       // instructs CgbMain to load targeted wave
+    u32 *currentPointer;    // stores the currently loaded wave
+    struct MusicPlayerTrack *track;
+    void *prevChannelPointer;
+    void *nextChannelPointer;
+    u8 dummy4[8];
 };
 
 struct MusicPlayerTrack;
 
 struct SoundChannel
 {
-    u8 status;
+    u8 statusFlags;
     u8 type;
     u8 rightVolume;
     u8 leftVolume;
@@ -149,7 +166,17 @@ struct SoundChannel
 
 #define MAX_DIRECTSOUND_CHANNELS 12
 
-#define PCM_DMA_BUF_SIZE 1584 // size of Direct Sound buffer
+#define PCM_DMA_BUF_SIZE 792 // size of Direct Sound buffer
+
+struct MusicPlayerInfo;
+
+typedef void (*MPlayFunc)();
+typedef void (*PlyNoteFunc)(u32, struct MusicPlayerInfo *, struct MusicPlayerTrack *);
+typedef void (*CgbSoundFunc)(void);
+typedef void (*CgbOscOffFunc)(u8);
+typedef u32 (*MidiKeyToCgbFreqFunc)(u8, u8, u8);
+typedef void (*ExtVolPitFunc)(void);
+typedef void (*MPlayMainFunc)(struct MusicPlayerInfo *);
 
 struct SoundInfo
 {
@@ -176,8 +203,8 @@ struct SoundInfo
     s32 pcmFreq;
     s32 divFreq;
     struct CgbChannel *cgbChans;
-    u32 func;
-    u32 intp;
+    MPlayMainFunc MPlayMainHead;
+    struct MusicPlayerInfo *musicPlayerHead;
     void (*CgbSound)(void);
     void (*CgbOscOff)(u8);
     u32 (*MidiKeyToCgbFreq)(u8, u8, u8);
@@ -270,8 +297,8 @@ struct MusicPlayerTrack
     u8 lfoDelay;
     u8 lfoDelayC;
     u8 priority;
-    u8 echoVolume;
-    u8 echoLength;
+    u8 pseudoEchoVolume;
+    u8 pseudoEchoLength;
     struct SoundChannel *chan;
     struct ToneData tone;
     u8 gap[10];
@@ -312,8 +339,8 @@ struct MusicPlayerInfo
     struct MusicPlayerTrack *tracks;
     struct ToneData *tone;
     u32 ident;
-    u32 func;
-    u32 intp;
+    MPlayMainFunc MPlayMainNext;
+    struct MusicPlayerInfo *musicPlayerNext;
 };
 
 struct MusicPlayer
@@ -340,7 +367,7 @@ extern u8 gMPlayMemAccArea[];
 
 extern char SoundMainRAM[];
 
-extern void *gMPlayJumpTable[];
+extern MPlayFunc gMPlayJumpTable[36];
 
 typedef void (*XcmdFunc)(struct MusicPlayerInfo *, struct MusicPlayerTrack *);
 extern const XcmdFunc gXcmdTable[];
@@ -388,7 +415,7 @@ void CgbSound(void);
 void CgbOscOff(u8);
 u32 MidiKeyToCgbFreq(u8, u8, u8);
 void DummyFunc(void);
-void MPlayJumpTableCopy(void **mplayJumpTable);
+void MPlayJumpTableCopy(MPlayFunc *mplayJumpTable);
 void SampleFreqSet(u32 freq);
 void m4aSoundVSyncOn(void);
 void m4aSoundVSyncOff(void);

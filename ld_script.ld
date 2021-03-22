@@ -1,6 +1,7 @@
 OUTPUT_ARCH(arm)
 
 gNumMusicPlayers = 4;
+gMaxLines = 0;
 
 SECTIONS
 {
@@ -8,21 +9,38 @@ SECTIONS
     EWRAM (NOLOAD) :
     ALIGN(4)
     {
-        INCLUDE "sym_ewram.txt"
+        data/ewram.o(ewram_data);
+        src/m4a.o(ewram_data);
+        data/ewram_2.o(ewram_data);
     }
 
     . = 0x03000000;
     IWRAM (NOLOAD) :
     ALIGN(4)
     {
-        INCLUDE "sym_iwram.txt"
+        data/bss_1.o(iwram_data);
+        src/m4a.o(iwram_data);
+        data/bss_2.o(iwram_data);
     }
     
 	. = 0x08000000;
     .text :
 	ALIGN(4)
 	{
-		asm/code.o(.text);
+        asm/crt0.o(.text);
+        asm/arm_80001CC.o(.text);
+        asm/code.o(.text);
+        asm/m4a_asm.o(.text);
+        src/m4a.o(.text);
+        asm/libagbsyscall.o(.text);
+        asm/eeprom.o(.text);
+        *libgcc.a:_call_via_rX.o(.text);
+        *libgcc.a:_divsi3.o(.text);
+        *libgcc.a:_dvmd_tls.o(.text);
+        *libgcc.a:_modsi3.o(.text);
+        *libgcc.a:_udivsi3.o(.text);
+        *libgcc.a:_umodsi3.o(.text);
+        asm/thunks.o(.text);
 	} = 0
 
     .data :

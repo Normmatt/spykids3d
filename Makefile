@@ -21,7 +21,7 @@ SCANINC := tools/scaninc/scaninc$(EXE)
 PREPROC := tools/preproc/preproc$(EXE)
 GBAFIX := tools/gbafix/gbafix$(EXE)
 
-CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -O0 -fhex-asm -g
+CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -O2 -fhex-asm -g
 CPPFLAGS := -I tools/agbcc/include -iquote include -nostdinc -undef -D VERSION_$(GAME_VERSION) -D REVISION=$(GAME_REVISION) -D $(GAME_REGION) -D DEBUG=$(DEBUG)
 ASFLAGS  := -mcpu=arm7tdmi -mthumb-interwork -I asminclude -I include --defsym VERSION_$(GAME_VERSION)=1 --defsym REVISION=$(GAME_REVISION) --defsym $(GAME_REGION)=1 --defsym DEBUG=$(DEBUG)
 
@@ -100,12 +100,7 @@ OBJS_REL := $(patsubst $(OBJ_DIR)/%,%,$(OBJS))
 SUBDIRS  := $(sort $(dir $(OBJS)))
 $(shell mkdir -p $(SUBDIRS))
 
-$(C_BUILDDIR)/agb_sram.o: CC1FLAGS := -O1 -mthumb-interwork
-$(C_BUILDDIR)/test.o: CC1FLAGS := -O0 -mthumb-interwork
-$(C_BUILDDIR)/sub_801E0EC.o: CC1FLAGS := -O0 -mthumb-interwork -g
-
-$(C_BUILDDIR)/m4a_2.o: CC1FLAGS := -mthumb-interwork -O1
-$(C_BUILDDIR)/m4a_4.o: CC1FLAGS := -mthumb-interwork -O1
+$(C_BUILDDIR)/m4a.o: CC1 := tools/agbcc/bin/old_agbcc
 
 
 #### Main Rules ####
@@ -184,14 +179,8 @@ endif
 
 #### Recipes ####
    
-$(OBJ_DIR)/ld_script.ld: $(LDSCRIPT) $(OBJ_DIR)/sym_ewram.txt $(OBJ_DIR)/sym_iwram.txt
+$(OBJ_DIR)/ld_script.ld: $(LDSCRIPT)
 	cd $(OBJ_DIR) && sed "s#tools/#../../tools/#g" ../../$(LDSCRIPT) > $(LDSCRIPT)
-    
-$(OBJ_DIR)/sym_ewram.txt: sym_ewram.txt
-	$(CPP) -P $(CPPFLAGS) $< | sed -e "s#tools/#../../tools/#g" > $@
-    
-$(OBJ_DIR)/sym_iwram.txt: sym_iwram.txt
-	$(CPP) -P $(CPPFLAGS) $< | sed -e "s#tools/#../../tools/#g" > $@
 
 $(C_BUILDDIR)/%.o : $(C_SUBDIR)/%.c $$(c_dep)
 	$(CPP) $(CPPFLAGS) $< -o $(C_BUILDDIR)/$*.i
