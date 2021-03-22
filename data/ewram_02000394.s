@@ -18,7 +18,7 @@ g_MusicEnabled::
 gUnknown_020003E4::
     .space 0x4
 
-gUnknown_020003E8::
+gNewKeys::
     .space 0x4
 
 gUnknown_020003EC::
@@ -30,7 +30,7 @@ gUnknown_020003F0::
 gUnknown_020003F4::
     .space 0x4
 
-gUnknown_020003F8::
+gHeldKeys::
     .space 0x8
 
 gUnknown_02000400::
@@ -54,7 +54,7 @@ gUnknown_02000AD4::
 gUnknown_02000AD8::
     .space 0x4
 
-gUnknown_02000ADC::
+gIgnoreKeys::
     .space 0x4
 
 gUnknown_02000AE0::

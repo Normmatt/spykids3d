@@ -31,7 +31,7 @@ SECTIONS
 	{
         asm/crt0.o(.text);
         asm/arm_80001CC.o(.text);
-        src/reset.o(.text);
+        src/input.o(.text);
         src/random.o(.text);
         asm/code.o(.text);
         asm/m4a_asm.o(.text);
