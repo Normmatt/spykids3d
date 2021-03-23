@@ -4,126 +4,6 @@
 .syntax unified
 .section .text
 
-	thumb_func_start sub_8000AC0
-sub_8000AC0: @ 0x08000AC0
-	push {r4, r5, lr}
-	ldr r2, _08000AF0 @ =0x04000054
-	movs r0, #0
-	strh r0, [r2]
-	ldr r1, _08000AF4 @ =0x04000050
-	movs r0, #0xff
-	strh r0, [r1]
-	movs r4, #0
-	adds r5, r2, #0
-_08000AD2:
-	strh r4, [r5]
-	bl VBlankIntrWait
-	adds r0, r4, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, #0xf
-	bls _08000AD2
-	ldr r1, _08000AF0 @ =0x04000054
-	movs r0, #0x10
-	strh r0, [r1]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08000AF0: .4byte 0x04000054
-_08000AF4: .4byte 0x04000050
-
-	thumb_func_start sub_8000AF8
-sub_8000AF8: @ 0x08000AF8
-	push {r4, r5, lr}
-	ldr r2, _08000B28 @ =0x04000054
-	movs r0, #0
-	strh r0, [r2]
-	ldr r1, _08000B2C @ =0x04000050
-	movs r0, #0xbf
-	strh r0, [r1]
-	movs r4, #0
-	adds r5, r2, #0
-_08000B0A:
-	strh r4, [r5]
-	bl VBlankIntrWait
-	adds r0, r4, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, #0xf
-	bls _08000B0A
-	ldr r1, _08000B28 @ =0x04000054
-	movs r0, #0x10
-	strh r0, [r1]
-	pop {r4, r5}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08000B28: .4byte 0x04000054
-_08000B2C: .4byte 0x04000050
-
-	thumb_func_start sub_8000B30
-sub_8000B30: @ 0x08000B30
-	push {r4, r5, r6, lr}
-	ldr r2, _08000B64 @ =0x04000054
-	movs r0, #0x10
-	strh r0, [r2]
-	ldr r1, _08000B68 @ =0x04000050
-	movs r0, #0xff
-	strh r0, [r1]
-	movs r4, #0
-	adds r6, r2, #0
-	movs r5, #0x10
-_08000B44:
-	subs r0, r5, r4
-	strh r0, [r6]
-	bl VBlankIntrWait
-	adds r0, r4, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, #0xf
-	bls _08000B44
-	ldr r1, _08000B64 @ =0x04000054
-	movs r0, #0
-	strh r0, [r1]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08000B64: .4byte 0x04000054
-_08000B68: .4byte 0x04000050
-
-	thumb_func_start sub_8000B6C
-sub_8000B6C: @ 0x08000B6C
-	push {r4, r5, r6, lr}
-	ldr r2, _08000BA0 @ =0x04000054
-	movs r0, #0x10
-	strh r0, [r2]
-	ldr r1, _08000BA4 @ =0x04000050
-	movs r0, #0xbf
-	strh r0, [r1]
-	movs r4, #0
-	adds r6, r2, #0
-	movs r5, #0x10
-_08000B80:
-	subs r0, r5, r4
-	strh r0, [r6]
-	bl VBlankIntrWait
-	adds r0, r4, #1
-	lsls r0, r0, #0x10
-	lsrs r4, r0, #0x10
-	cmp r4, #0xf
-	bls _08000B80
-	ldr r1, _08000BA0 @ =0x04000054
-	movs r0, #0
-	strh r0, [r1]
-	pop {r4, r5, r6}
-	pop {r0}
-	bx r0
-	.align 2, 0
-_08000BA0: .4byte 0x04000054
-_08000BA4: .4byte 0x04000050
-
 	thumb_func_start sub_8000BA8
 sub_8000BA8: @ 0x08000BA8
 	push {lr}
@@ -151,7 +31,7 @@ sub_8000BA8: @ 0x08000BA8
 	ldr r0, _08000D34 @ =0x80001470
 	str r0, [r1, #8]
 	ldr r0, [r1, #8]
-	bl sub_8000B6C
+	bl Fade_FadeFromWhite
 	ldr r3, _08000D38 @ =0x04000006
 	movs r2, #0x77
 _08000BE2:
@@ -172,7 +52,7 @@ _08000BF2:
 	subs r2, #1
 	cmp r2, #0
 	bge _08000BE2
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r1, _08000D18 @ =0x040000D4
 	ldr r0, _08000D3C @ =gUnknown_0802F4C8
 	str r0, [r1]
@@ -197,7 +77,7 @@ _08000BF2:
 	ldr r0, _08000D4C @ =0x80000B00
 	str r0, [r1, #8]
 	ldr r0, [r1, #8]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r3, _08000D38 @ =0x04000006
 	movs r2, #0x77
 _08000C3A:
@@ -218,7 +98,7 @@ _08000C4A:
 	subs r2, #1
 	cmp r2, #0
 	bge _08000C3A
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r1, _08000D18 @ =0x040000D4
 	ldr r0, _08000D50 @ =gUnknown_0801D43C
 	str r0, [r1]
@@ -243,7 +123,7 @@ _08000C4A:
 	ldr r0, _08000D5C @ =0x800007A0
 	str r0, [r1, #8]
 	ldr r0, [r1, #8]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r3, _08000D38 @ =0x04000006
 	movs r2, #0x77
 _08000C92:
@@ -264,7 +144,7 @@ _08000CA2:
 	subs r2, #1
 	cmp r2, #0
 	bge _08000C92
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r1, _08000D18 @ =0x040000D4
 	ldr r0, _08000D60 @ =gUnknown_0801EA7C
 	str r0, [r1]
@@ -289,7 +169,7 @@ _08000CA2:
 	ldr r0, _08000D6C @ =0x80000990
 	str r0, [r1, #8]
 	ldr r0, [r1, #8]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	movs r2, #0
 	ldr r3, _08000D38 @ =0x04000006
 _08000CEA:
@@ -310,9 +190,9 @@ _08000CFC:
 	bls _08000CFC
 	cmp r2, #0x77
 	ble _08000CEA
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	bl sub_800E4B8
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	pop {r0}
 	bx r0
 	.align 2, 0
@@ -525,7 +405,7 @@ sub_8000DFC: @ 0x08000DFC
 	ldr r0, _08000F98 @ =gUnknown_020119FC
 	movs r1, #0
 	str r1, [r0]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 _08000EF8:
 	ldr r3, _08000F9C @ =gUnknown_080311C4
 	movs r0, #0xf
@@ -947,14 +827,14 @@ _08001210:
 	movs r1, #1
 	adds r2, r4, #0
 	bl sub_801A434
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 _080012AE:
 	movs r5, #0
 	cmp r5, #0
 	bne _080012B6
 	b _08000EF8
 _080012B6:
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r1, _08001374 @ =0x040000D4
 	ldr r0, _08001378 @ =gUnknown_02000B10
 	str r0, [r1]
@@ -1082,7 +962,7 @@ _080013DC:
 	ldr r0, _08001508 @ =gUnknown_087F6E20
 	movs r1, #0
 	bl sub_8003A5C
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r4, _0800150C @ =gUnknown_02010B20
 	adds r0, r4, #0
 	bl sub_801A41C
@@ -1170,7 +1050,7 @@ _080013DC:
 	movs r0, #8
 	str r0, [r5]
 _080014AC:
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r2, _08001560 @ =gUnknown_020126A2
 	subs r2, #2
 	mov r8, r2
@@ -1337,7 +1217,7 @@ _08001646:
 	bne _0800164E
 	b _080014BA
 _0800164E:
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r4, _080016B0 @ =gUnknown_02010B20
 	adds r0, r4, #0
 	bl sub_801A41C
@@ -1654,7 +1534,7 @@ _080017F4:
 	ldr r0, _080019BC @ =gUnknown_087F530C
 	movs r1, #0
 	bl sub_8003A5C
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 _080018F0:
 	ldr r3, _080019C0 @ =gUnknown_08031304
 	movs r0, #0xf
@@ -2092,7 +1972,7 @@ _08001C96:
 	bne _08001CA4
 	b _080018F0
 _08001CA4:
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r0, [sp, #0xc]
 	add r0, sl
 	add sp, #0x24
@@ -2311,7 +2191,7 @@ sub_8001D48: @ 0x08001D48
 	ldr r1, _08001FD8 @ =gUnknown_02011994
 	movs r0, #1
 	str r0, [r1]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r0, _08001FDC @ =gUnknown_087F7D88
 	ldr r2, [sp, #4]
 	lsls r5, r2, #2
@@ -2385,7 +2265,7 @@ _08001EB0:
 	cmp r0, #0
 	beq _08001E64
 _08001EE2:
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r1, _08001F68 @ =0x040000D4
 	ldr r0, _08001F6C @ =gUnknown_02000B10
 	str r0, [r1]
@@ -2583,7 +2463,7 @@ sub_800200C: @ 0x0800200C
 	ldr r1, _080021C0 @ =gUnknown_02011994
 	movs r0, #1
 	str r0, [r1]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r0, _080021C4 @ =gUnknown_087F7D50
 	mov r1, r8
 	lsls r5, r1, #2
@@ -2656,7 +2536,7 @@ _0800212A:
 	cmp r0, #0
 	beq _080020E0
 _0800215C:
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -6655,7 +6535,7 @@ _08004430:
 	ldr r0, [r4, #4]
 	str r0, [r1]
 	bl sub_800BB2C
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r0, _08004490 @ =gHeldKeys
 	movs r1, #0
 	strh r1, [r0]
@@ -6857,13 +6737,13 @@ _08004608:
 	ands r0, r1
 	cmp r0, #0
 	beq _0800463A
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	bl sub_8000DFC
 	ldr r0, _0800468C @ =gUnknown_020003F0
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _080046F4
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 _0800463A:
 	ldr r4, _08004690 @ =gUnknown_02012624
 	ldr r0, [r4]
@@ -6871,11 +6751,11 @@ _0800463A:
 	rsbs r5, r5, #0
 	cmp r0, r5
 	beq _08004656
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r0, [r4]
 	bl sub_8001D48
 	str r5, [r4]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 _08004656:
 	movs r1, #2
 	ldrsh r0, [r7, r1]
@@ -6944,7 +6824,7 @@ _080046B2:
 	b _08004456
 _080046EA:
 	bl sub_8003A8C
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	movs r0, #1
 _080046F4:
 	add sp, #0xc
@@ -7335,7 +7215,7 @@ _080049F4:
 	ldr r0, [r5, #4]
 	str r0, [r1]
 	bl sub_800BB2C
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r0, _08004A84 @ =gHeldKeys
 	strh r4, [r0]
 	ldr r0, _08004A88 @ =gNewKeys
@@ -7804,7 +7684,7 @@ _08004E30:
 	ands r0, r1
 	cmp r0, #0
 	beq _08004E64
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	bl sub_8000DFC
 	ldr r0, _08004F04 @ =gUnknown_020003F0
 	ldr r0, [r0]
@@ -7812,7 +7692,7 @@ _08004E30:
 	bne _08004E60
 	b _08005010
 _08004E60:
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 _08004E64:
 	ldr r4, _08004F08 @ =gUnknown_02012624
 	ldr r0, [r4]
@@ -7820,11 +7700,11 @@ _08004E64:
 	rsbs r5, r5, #0
 	cmp r0, r5
 	beq _08004E80
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r0, [r4]
 	bl sub_8001D48
 	str r5, [r4]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 _08004E80:
 	ldr r4, _08004F0C @ =gUnknown_02000810
 	movs r1, #2
@@ -8011,7 +7891,7 @@ _08004FDE:
 	b _08004A3A
 _08005006:
 	bl sub_8003A8C
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	movs r0, #1
 _08005010:
 	add sp, #0x10
@@ -8294,7 +8174,7 @@ _08005234:
 	movs r0, #0xa
 	movs r1, #2
 	bl sub_801A434
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r0, _080053AC @ =gUnknown_0201268C
 	ldr r0, [r0]
 	cmp r0, #0xb3
@@ -8517,7 +8397,7 @@ _08005424:
 	ands r0, r1
 	cmp r0, #0
 	beq _08005498
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	bl sub_8000DFC
 	ldr r0, _08005518 @ =gUnknown_020003F0
 	ldr r0, [r0]
@@ -8525,7 +8405,7 @@ _08005424:
 	bne _08005494
 	b _08005748
 _08005494:
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 _08005498:
 	ldr r0, [r6]
 	cmp r0, #0xb3
@@ -8720,13 +8600,13 @@ _08005646:
 	ands r0, r1
 	cmp r0, #0
 	beq _08005666
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	bl sub_8000DFC
 	ldr r0, _080056FC @ =gUnknown_020003F0
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _08005748
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 _08005666:
 	ldr r1, _08005700 @ =gUnknown_0201270C
 	ldr r0, [r1]
@@ -8832,7 +8712,7 @@ _0800572A:
 	str r0, [r1]
 _0800573E:
 	bl sub_8003A8C
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	movs r0, #1
 _08005748:
 	add sp, #0x10
@@ -9136,7 +9016,7 @@ _080059FA:
 	ldr r0, [r4, #4]
 	str r0, [r1]
 	bl sub_800BB2C
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r0, _08005A70 @ =gUnknown_02012688
 	ldr r7, [r0]
 	ldr r0, _08005A74 @ =gHeldKeys
@@ -9357,13 +9237,13 @@ _08005C08:
 	ands r0, r1
 	cmp r0, #0
 	beq _08005C3A
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	bl sub_8000DFC
 	ldr r0, _08005C58 @ =gUnknown_020003F0
 	ldr r0, [r0]
 	cmp r0, #0
 	beq _08005C7C
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 _08005C3A:
 	cmp r6, #4
 	bne _08005C60
@@ -9390,7 +9270,7 @@ _08005C6A:
 	movs r1, #2
 	bl sub_8003A9C
 	bl sub_8003A8C
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	movs r0, #1
 _08005C7C:
 	add sp, #8
@@ -11558,7 +11438,7 @@ _08006E04:
 	strh r1, [r0]
 	adds r0, #2
 	strh r1, [r0]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	movs r5, #0
 	mov r4, sp
 _08006E16:
@@ -11571,7 +11451,7 @@ _08006E16:
 	ands r0, r1
 	cmp r0, #0
 	beq _08006E5C
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	cmp r6, #0
 	beq _08006E44
 	subs r0, r6, #1
@@ -11599,7 +11479,7 @@ _08006E5C:
 	ands r0, r1
 	cmp r0, #0
 	beq _08006EBA
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	cmp r6, #0xd
 	bhi _08006E74
 	adds r0, r6, #1
@@ -11629,7 +11509,7 @@ _08006E90:
 	lsrs r0, r0, #0x18
 	bl sub_80067EC
 _08006E9C:
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	mov r2, sp
 	adds r0, r6, #1
 	movs r1, #0x30
@@ -11675,7 +11555,7 @@ _08006EF4: .4byte gNewKeys
 _08006EF8: .4byte gUnknown_02000AD4
 _08006EFC: .4byte gUnknown_08056B44
 _08006F00:
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	add sp, #4
 	pop {r4, r5, r6, r7}
 	pop {r0}
@@ -28150,7 +28030,7 @@ PasswordEntryLoop: @ 0x0800F0AC
 	movs r7, #0
 	mov sl, r0
 	bl sub_800EEE8
-	bl sub_8000B6C
+	bl Fade_FadeFromWhite
 	movs r0, #1
 	rsbs r0, r0, #0
 	str r0, [sp, #0xc]
@@ -28284,7 +28164,7 @@ _0800F1AC:
 	str r5, [sp, #0x18]
 	movs r0, #0
 	mov r8, r0
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	b _0800F200
 	.align 2, 0
 _0800F1E4: .4byte gUnknown_02000AD4
@@ -28310,7 +28190,7 @@ _0800F200:
 	mov r0, r8
 	cmp r0, #0
 	bne _0800F220
-	bl sub_8000AF8
+	bl Fade_FadeToWhite
 	b _0800F3C8
 	.align 2, 0
 _0800F218: .4byte gUnknown_087F793C
@@ -28648,7 +28528,7 @@ sub_800F4B8: @ 0x0800F4B8
 	movs r0, #0
 	mov sl, r0
 	bl sub_800EDE4
-	bl sub_8000B6C
+	bl Fade_FadeFromWhite
 	cmp r6, #0
 	beq _0800F50C
 	ldr r1, _0800F500 @ =gUnknown_02011A10
@@ -28678,7 +28558,7 @@ _0800F4F8:
 	.align 2, 0
 _0800F500: .4byte gUnknown_02011A10
 _0800F504:
-	bl sub_8000AF8
+	bl Fade_FadeToWhite
 	adds r0, r5, #0
 	b _0800F79C
 _0800F50C:
@@ -28999,7 +28879,7 @@ _0800F788: .4byte gUnknown_02000388
 _0800F78C: .4byte 0x04000014
 _0800F790: .4byte 0x04000016
 _0800F794:
-	bl sub_8000AF8
+	bl Fade_FadeToWhite
 	movs r0, #1
 	rsbs r0, r0, #0
 _0800F79C:
@@ -29026,7 +28906,7 @@ sub_800F7AC: @ 0x0800F7AC
 	mov r1, r8
 	strb r1, [r0, #1]
 	bl sub_800ECE0
-	bl sub_8000B6C
+	bl Fade_FadeFromWhite
 	ldr r4, _0800F7F8 @ =gUnknown_020126A2
 	mov sl, r4
 	movs r0, #2
@@ -29173,7 +29053,7 @@ _0800F8E6:
 	ands r0, r1
 	cmp r0, #0
 	beq _0800F900
-	bl sub_8000AF8
+	bl Fade_FadeToWhite
 	b _0800FA40
 	.align 2, 0
 _0800F8F8: .4byte g_MusicEnabled
@@ -29361,7 +29241,7 @@ sub_800FA50: @ 0x0800FA50
 	movs r4, #1
 	mov r8, r4
 _0800FA8E:
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r0, _0800FAC4 @ =gUnknown_020126A2
 	mov sl, r0
 	movs r4, #2
@@ -29450,7 +29330,7 @@ _0800FB1A:
 _0800FB40: .4byte gNewKeys
 _0800FB44: .4byte gUnknown_087F793C
 _0800FB48:
-	bl sub_8000AF8
+	bl Fade_FadeToWhite
 	ldr r4, _0800FB70 @ =gUnknown_02000AD8
 	movs r0, #0
 	bl sub_800F4B8
@@ -29459,15 +29339,15 @@ _0800FB48:
 	rsbs r1, r1, #0
 	cmp r0, r1
 	beq _0800FBB6
-	bl sub_8000B6C
-	bl sub_8000AC0
+	bl Fade_FadeFromWhite
+	bl Fade_FadeToBlack
 	bl sub_8000D70
 	movs r0, #1
 	b _0800FCD4
 	.align 2, 0
 _0800FB70: .4byte gUnknown_02000AD8
 _0800FB74:
-	bl sub_8000AF8
+	bl Fade_FadeToWhite
 	ldr r4, _0800FBA0 @ =gUnknown_02000AD8
 	movs r0, #1
 	bl sub_800F4B8
@@ -29476,8 +29356,8 @@ _0800FB74:
 	rsbs r1, r1, #0
 	cmp r0, r1
 	beq _0800FBB6
-	bl sub_8000B6C
-	bl sub_8000AC0
+	bl Fade_FadeFromWhite
+	bl Fade_FadeToBlack
 	bl sub_8000D70
 	ldr r0, [r4]
 	bl sub_8002B0C
@@ -29490,19 +29370,19 @@ _0800FBA4:
 	ldr r1, _0800FBC0 @ =gUnknown_02011994
 	movs r0, #0
 	str r0, [r1]
-	bl sub_8000AF8
+	bl Fade_FadeToWhite
 	bl sub_800F7AC
 _0800FBB6:
 	bl sub_800EBA0
-	bl sub_8000B6C
+	bl Fade_FadeFromWhite
 	b _0800FBD4
 	.align 2, 0
 _0800FBC0: .4byte gUnknown_02011994
 _0800FBC4:
-	bl sub_8000AF8
+	bl Fade_FadeToWhite
 	bl PasswordEntryLoop
 	bl sub_800EBA0
-	bl sub_8000B6C
+	bl Fade_FadeFromWhite
 _0800FBD4:
 	movs r0, #0xf
 	movs r1, #0x88
@@ -29743,7 +29623,7 @@ sub_800FDE4: @ 0x0800FDE4
 	push {r5, r6, r7}
 	movs r6, #0
 	bl sub_800FCE4
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	movs r0, #8
 	mov sl, r0
 	ldr r4, _0800FE0C @ =0x040000D4
@@ -29809,7 +29689,7 @@ _0800FE6E:
 	ands r0, r1
 	cmp r0, #0
 	beq _0800FE1C
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	pop {r3, r4, r5}
 	mov r8, r3
 	mov sb, r4
@@ -29936,7 +29816,7 @@ _0800FF76:
 	bne _0800FF7E
 	b _080100BA
 _0800FF7E:
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	ldr r4, _0801005C @ =0x040000D4
 	ldr r0, _08010060 @ =gUnknown_0802B62C
 	str r0, [r4]
@@ -29961,7 +29841,7 @@ _0800FF7E:
 	ldr r0, _08010078 @ =0x84000080
 	str r0, [r4, #8]
 	ldr r0, [r4, #8]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	lsls r6, r6, #0x18
 	str r6, [sp, #0xc]
 	ldr r6, _0801007C @ =0x05000094
@@ -30279,7 +30159,7 @@ sub_8010250: @ 0x08010250
 	ldr r1, _0801038C @ =gUnknown_02011994
 	movs r0, #1
 	str r0, [r1]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	movs r7, #0
 	add r5, sp, #4
 	mov r2, r8
@@ -30627,7 +30507,7 @@ _08010568:
 	ldr r0, [r0]
 	bl sub_8002C88
 	bl sub_8003A8C
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	add sp, #0x14
 	pop {r3, r4, r5}
 	mov r8, r3
@@ -30706,7 +30586,7 @@ _080105C8:
 	ldr r1, _08010668 @ =gUnknown_02011994
 	movs r0, #1
 	str r0, [r1]
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	ldr r0, _0801066C @ =CreditStrings
 	mov r8, r0
 _08010632:
@@ -30775,7 +30655,7 @@ _080106B0:
 	lsls r2, r2, #5
 	adds r0, r2, #0
 	strh r0, [r1]
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	bl sub_8003A8C
 	add sp, #0x64
 	pop {r3, r4}
@@ -32934,7 +32814,7 @@ _080116EE:
 	movs r2, #0xff
 	movs r3, #7
 	bl sub_800ACF8
-	bl sub_8000B30
+	bl Fade_FadeFromBlack
 	movs r0, #0
 	mov sb, r0
 	ldr r7, _080117F8 @ =gUnknown_02018A50
@@ -32990,7 +32870,7 @@ _08011794:
 	ands r0, r1
 	cmp r0, #0
 	beq _08011760
-	bl sub_8000AC0
+	bl Fade_FadeToBlack
 	add sp, #8
 	pop {r3, r4, r5}
 	mov r8, r3

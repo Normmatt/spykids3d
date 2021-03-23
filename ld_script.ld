@@ -33,6 +33,7 @@ SECTIONS
         asm/arm_80001CC.o(.text);
         src/input.o(.text);
         src/random.o(.text);
+        src/fade.o(.text);
         asm/code.o(.text);
         asm/m4a_asm.o(.text);
         src/m4a.o(.text);
