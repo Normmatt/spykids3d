@@ -34,6 +34,7 @@ SECTIONS
         src/input.o(.text);
         src/random.o(.text);
         src/fade.o(.text);
+        src/copyright_screens.o(.text);
         asm/code.o(.text);
         asm/m4a_asm.o(.text);
         src/m4a.o(.text);
