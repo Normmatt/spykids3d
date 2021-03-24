@@ -38,6 +38,8 @@ SECTIONS
         src/unk_8000D70.o(.text);
         src/pause_screen.o(.text);
         asm/code.o(.text);
+        src/sound.o(.text);
+        asm/code_2.o(.text);
         asm/m4a_asm.o(.text);
         src/m4a.o(.text);
         asm/libagbsyscall.o(.text);

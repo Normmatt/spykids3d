@@ -812,9 +812,29 @@ gUnknown_087428A4:
 gXcmdTable:
     .incbin "baserom.gba", 0x007428D8, 0xE9C
 
+@ Some of these music track pointers dont agree with the size of a music track.
+@ TODO: Any shared memory?
     .global gMPlayTable
 gMPlayTable:
-    .incbin "baserom.gba", 0x00743774, 0x30
+    .4byte gUnknown_0201B4B0   
+    .4byte 0x02000000   
+    .2byte 8
+    .2byte 0
+
+    .4byte gUnknown_0201B4F0
+    .4byte 0x02000280
+    .2byte 1
+    .2byte 1
+
+    .4byte gUnknown_0201B530
+    .4byte 0x020002D0
+    .2byte 1
+    .2byte 1
+
+    .4byte gUnknown_0201B580
+    .4byte 0x02000320
+    .2byte 1
+    .2byte 1
 
     .global gSongTable
 gSongTable:

@@ -180,14 +180,14 @@ void Menu_RenderPauseScreen(void) {
         InputUpdate();
     
         if (gNewKeys & 0x0040) {
-            sub_8003A9C(gUnknown_087F7920, 2);
+            Sound_PlaySE(gUnknown_087F7920, 2);
             if(spC) {
                 spC--;
             } else {
                 spC = (gUnknown_02000AD4) ? 2 : 1;
             }
         } else if (gNewKeys & 0x0080) { // _080011A8
-            sub_8003A9C(gUnknown_087F7920, 2);
+            Sound_PlaySE(gUnknown_087F7920, 2);
             if(spC < 2 && gUnknown_02000AD4) {
                 spC++;
             } else if (!spC) {
