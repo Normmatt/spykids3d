@@ -35,6 +35,8 @@ SECTIONS
         src/random.o(.text);
         src/fade.o(.text);
         src/copyright_screens.o(.text);
+        src/unk_8000D70.o(.text);
+        src/pause_screen.o(.text);
         asm/code.o(.text);
         asm/m4a_asm.o(.text);
         src/m4a.o(.text);

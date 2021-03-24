@@ -1,11 +1,5 @@
 #include "global.h"
-
-// ewram
-extern u8 gIgnoreKeys;
-
-// probably COMMON
-extern u16 gNewKeys;
-extern u16 gHeldKeys;
+#include "input.h"
 
 extern void SoftResetRom(u8);
 
