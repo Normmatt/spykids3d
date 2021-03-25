@@ -95,284 +95,257 @@ void AgbMain(void) {
         sub_800FA50();
         gUnknown_020003F0 = 1;
         gIgnoreKeys = 0;
-SKIP_INIT:
-        gUnknown_02013118 = 1;
-        gUnknown_02012630 = 1;
-        gUnknown_020126F0 = 0;
-        gUnknown_02012688 = 0;
-        gUnknown_020126FC = 0;
-        gUnknown_02012694 = 0;
-        gUnknown_02012638 = 0;
-
-        if(gUnknown_0200039C == 0) {
-            gUnknown_02000AD0 = 0;
-        } else {
-            gUnknown_02000AD0 = sub_80017C8();
-        }
-
-        /**
-         * These cases are very macro-y. They seemingly abuse gotos due to nested do
-         * whiles and switches.
-         * 
-         * TODO: Any better way to make this less hacky?
-         */
-        switch(gUnknown_02000AD0) {
-            case 0:
-                sub_8012F9C(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (!sub_80042B4(0));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while(0);
-
-                if(gUnknown_0200039C == 0) {
-                    gUnknown_0200039C = 1;
-                }
-
-                sub_8010250(0);
-                break;
-            case 1:
-                sub_8012F9C(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (!sub_80042B4(1));
-                
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while(0);
-
-                if(gUnknown_0200039C == 1) {
-                    gUnknown_0200039C = 2;
-                }
-
-                sub_8010250(1);
-                break;
-            case 2: 
-                sub_8012F9C(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
+        do {
+            gUnknown_02013118 = 1;
+            gUnknown_02012630 = 1;
+            gUnknown_020126F0 = 0;
+            gUnknown_02012688 = 0;
+            gUnknown_020126FC = 0;
+            gUnknown_02012694 = 0;
+            gUnknown_02012638 = 0;
+        
+            if(gUnknown_0200039C == 0) {
+                gUnknown_02000AD0 = 0;
+            } else {
+                gUnknown_02000AD0 = sub_80017C8();
+            }
+        
+            /**
+            * These cases are very macro-y. They seemingly abuse gotos due to nested do
+            * whiles and switches.
+            * 
+            * TODO: Any better way to make this less hacky?
+            */
+            switch(gUnknown_02000AD0) {
+                case 0:
+                    sub_8012F9C(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_80042B4(0));
+        
                     if(!gUnknown_020003F0) break;
-                } while (!sub_80042B4(2));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while(!sub_8005770(0));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while(0);
-
-                if(gUnknown_0200039C == 2) {
-                    gUnknown_0200039C = 3;
-                }
-
-                sub_8010250(2);
-                break;
-            case 3: 
-                sub_801439C(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (!sub_80050C4(0));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (0);
-
-                if(gUnknown_0200039C == 3) {
-                    gUnknown_0200039C = 4;
-                }
-
-                sub_8010250(9);
-                break;
-            case 4: 
-                sub_8013E68(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (!sub_80042B4(3));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (0);
-
-                if(gUnknown_0200039C == 4) {
-                    gUnknown_0200039C = 5;
-                }
-
-                sub_8010250(3);
-                break;
-            case 5: 
-                sub_8013E68(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (!sub_80042B4(4));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (0);
-
-                if(gUnknown_0200039C == 5) {
-                    gUnknown_0200039C = 6;
-                }
-
-                sub_8010250(4);
-                break;
-            case 6: 
-                sub_8013E68(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
+        
+                    if(gUnknown_0200039C == 0) {
+                        gUnknown_0200039C = 1;
+                    }
+        
+                    sub_8010250(0);
+                    break;
+                case 1:
+                    sub_8012F9C(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_80042B4(1));
+                    
                     if(!gUnknown_020003F0) break;
-                } while (!sub_80042B4(5));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (!sub_8005770(1));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (0);
-
-                if(gUnknown_0200039C == 6) {
-                    gUnknown_0200039C = 7;
-                }
-
-                sub_8010250(5);
-                break;
-            case 7: 
-                sub_801439C(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
+        
+                    if(gUnknown_0200039C == 1) {
+                        gUnknown_0200039C = 2;
+                    }
+        
+                    sub_8010250(1);
+                    break;
+                case 2: 
+                    sub_8012F9C(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_80042B4(2));
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while(!sub_8005770(0));
+        
                     if(!gUnknown_020003F0) break;
-                } while (!sub_80050C4(1));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (0);
-
-                if(gUnknown_0200039C == 7) {
-                    gUnknown_0200039C = 8;
-                }
-
-                sub_8010250(10);
-                break;
-            case 8: 
-                sub_8012F9C(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (!sub_8004828(0));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (0);
-
-                if(gUnknown_0200039C == 8) {
-                    gUnknown_0200039C = 9;
-                }
-
-                sub_8010250(6);
-                break;
-            case 9: 
-                sub_8012F9C(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (!sub_8004828(1));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (0);
-
-                if(gUnknown_0200039C == 9) {
-                    gUnknown_0200039C = 10;
-                }
-
-                sub_8010250(7);
-                break;
-            case 10: 
-                sub_8012F9C(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
+        
+                    if(gUnknown_0200039C == 2) {
+                        gUnknown_0200039C = 3;
+                    }
+        
+                    sub_8010250(2);
+                    break;
+                case 3: 
+                    sub_801439C(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_80050C4(0));
+        
                     if(!gUnknown_020003F0) break;
-                } while (!sub_8004828(2));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (!sub_8005770(2));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while(0);
-
-                if(gUnknown_0200039C == 10) {
-                    gUnknown_0200039C = 11;
-                }
-
-                sub_8010250(8);
-                break;
-            case 11: 
-                sub_801439C(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while (!sub_80050C4(2));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while(0);
-
-                if(gUnknown_0200039C == 11) {
-                    gUnknown_0200039C = 12;
-                }
-
-                sub_8010250(11);
-                break;
-            case 12: 
-                sub_8012F9C(gUnknown_02000810);
-                sub_800200C(gUnknown_02000AD0);
-
-                do {
+        
+                    if(gUnknown_0200039C == 3) {
+                        gUnknown_0200039C = 4;
+                    }
+        
+                    sub_8010250(9);
+                    break;
+                case 4: 
+                    sub_8013E68(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_80042B4(3));
+        
                     if(!gUnknown_020003F0) break;
-                } while (!sub_8005770(4));
+        
+                    if(gUnknown_0200039C == 4) {
+                        gUnknown_0200039C = 5;
+                    }
+        
+                    sub_8010250(3);
+                    break;
+                case 5: 
+                    sub_8013E68(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_80042B4(4));
+        
+                    if(!gUnknown_020003F0) break;
+        
+                    if(gUnknown_0200039C == 5) {
+                        gUnknown_0200039C = 6;
+                    }
+        
+                    sub_8010250(4);
+                    break;
+                case 6: 
+                    sub_8013E68(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_80042B4(5));
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_8005770(1));
+        
+                    if(!gUnknown_020003F0) break;
+        
+                    if(gUnknown_0200039C == 6) {
+                        gUnknown_0200039C = 7;
+                    }
+        
+                    sub_8010250(5);
+                    break;
+                case 7: 
+                    sub_801439C(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_80050C4(1));
+        
+                    if(!gUnknown_020003F0) break;
+        
+                    if(gUnknown_0200039C == 7) {
+                        gUnknown_0200039C = 8;
+                    }
+        
+                    sub_8010250(10);
+                    break;
+                case 8: 
+                    sub_8012F9C(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_8004828(0));
+        
+                    if(!gUnknown_020003F0) break;
+        
+                    if(gUnknown_0200039C == 8) {
+                        gUnknown_0200039C = 9;
+                    }
+        
+                    sub_8010250(6);
+                    break;
+                case 9: 
+                    sub_8012F9C(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_8004828(1));
+        
+                    if(!gUnknown_020003F0) break;
+        
+                    if(gUnknown_0200039C == 9) {
+                        gUnknown_0200039C = 10;
+                    }
+        
+                    sub_8010250(7);
+                    break;
+                case 10: 
+                    sub_8012F9C(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_8004828(2));
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_8005770(2));
+        
+                    if(!gUnknown_020003F0) break;
+        
+                    if(gUnknown_0200039C == 10) {
+                        gUnknown_0200039C = 11;
+                    }
+        
+                    sub_8010250(8);
+                    break;
+                case 11: 
+                    sub_801439C(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_80050C4(2));
+        
+                    if(!gUnknown_020003F0) break;
+        
+                    if(gUnknown_0200039C == 11) {
+                        gUnknown_0200039C = 12;
+                    }
+        
+                    sub_8010250(11);
+                    break;
+                case 12: 
+                    sub_8012F9C(gUnknown_02000810);
+                    sub_800200C(gUnknown_02000AD0);
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while (!sub_8005770(4));
+        
+                    do {
+                        if(!gUnknown_020003F0) break;
+                    } while(!sub_8005770(3));
+        
+                    if(!gUnknown_020003F0) break;
+        
+                    sub_8010250(12);
+        
+                    sub_800200C(13);
+                    sub_80115F8();
+                    DrawCredits();
+        
+                    gUnknown_020003F0 = 0;
+                    break;
+            }
+        } while(gUnknown_020003F0);
 
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while(!sub_8005770(3));
-
-                do {
-                    if(!gUnknown_020003F0) goto EXIT;
-                } while(0);
-
-                sub_8010250(12);
-
-                sub_800200C(13);
-                sub_80115F8();
-                DrawCredits();
-
-                gUnknown_020003F0 = 0;
-                break;
-        }
-        if(gUnknown_020003F0)
-            goto SKIP_INIT;
-EXIT:
         Sound_PlayMusic(&gUnknown_087F530C, 0);
     }
 }
