@@ -203,31 +203,29 @@ void Menu_RenderPauseScreen(void) {
         // _080011E8
         if (gNewKeys & 0x9) {
             if (spC == 0) {
+                loop = 0;
                 break;
-            }
-            // god, I hate doing this. No, an else does not work.
-#ifndef NON_MATCHING
-            asm("":::"r1");
-#endif
-            if (spC == 1) {
-                gUnknown_020003F0 = 0;
-                return;
-            } else { // _08001210
-                sub_8006D90(0);
-                REG_DISPCNT = 0x1340;
-                REG_BG0CNT = 4;
-                REG_BG1CNT = 0x208;
-                DmaCopy32(3, &gUnknown_08024BD8, (void*)(VRAM), sizeof(gUnknown_08024BD8));
-                DmaCopy32(3, &gUnknown_080252D4, (void*)(VRAM + 0x4000), sizeof(gUnknown_080252D4));
-                DmaCopy32(3, &gUnknown_080250D4, (void*)(PLTT), sizeof(gUnknown_080250D4));
-                DmaCopy32(3, &gUnknown_08020E9C, (void*)(VRAM + 0x8000), sizeof(gUnknown_08020E9C));
-                DmaCopy32(3, &gUnknown_0802049C, (void*)(VRAM + 0x1000), sizeof(gUnknown_0802049C));
-                *(vu16 *)PLTT = 0; //???...
-                sub_801A42C(0, gUnknown_083FDC08);
-                sub_801A434(1, 1, gUnknown_083FDC08);
-                sub_801A434(0xE, 0, gUnknown_083D65F4);
-                sub_801A434(0xF, 1, gUnknown_083D65F4);
-                Fade_FadeFromBlack();
+            } else {
+                if (spC == 1) {
+                    gUnknown_020003F0 = 0;
+                    return;
+                } else { // _08001210
+                    sub_8006D90(0);
+                    REG_DISPCNT = 0x1340;
+                    REG_BG0CNT = 4;
+                    REG_BG1CNT = 0x208;
+                    DmaCopy32(3, &gUnknown_08024BD8, (void*)(VRAM), sizeof(gUnknown_08024BD8));
+                    DmaCopy32(3, &gUnknown_080252D4, (void*)(VRAM + 0x4000), sizeof(gUnknown_080252D4));
+                    DmaCopy32(3, &gUnknown_080250D4, (void*)(PLTT), sizeof(gUnknown_080250D4));
+                    DmaCopy32(3, &gUnknown_08020E9C, (void*)(VRAM + 0x8000), sizeof(gUnknown_08020E9C));
+                    DmaCopy32(3, &gUnknown_0802049C, (void*)(VRAM + 0x1000), sizeof(gUnknown_0802049C));
+                    *(vu16 *)PLTT = 0; //???...
+                    sub_801A42C(0, gUnknown_083FDC08);
+                    sub_801A434(1, 1, gUnknown_083FDC08);
+                    sub_801A434(0xE, 0, gUnknown_083D65F4);
+                    sub_801A434(0xF, 1, gUnknown_083D65F4);
+                    Fade_FadeFromBlack();
+                }
             }
         }
     }
