@@ -47,7 +47,7 @@ extern u32 gUnknown_02000388;
 extern u16 gNewKeys;
 extern u16 gHeldKeys;
 
-extern u8 gUnknown_087F7920[];
+extern struct SongHeader gUnknown_087F7920;
 extern int gUnknown_020003F0;
 
 extern u16 gUnknown_02011934;
@@ -61,6 +61,10 @@ extern void sub_801A41C(u8 *);
 
 extern void sub_801A42C(int, void*);
 extern void sub_801A434(int, int, void*);
+
+extern void Sound_PlaySE(struct SongHeader *songHeader, int musicPlayer);
+extern void sub_801A424(void*);
+extern void sub_8006D90(int);
 
 void Menu_RenderPauseScreen(void) {
     u32 spC;
@@ -180,14 +184,14 @@ void Menu_RenderPauseScreen(void) {
         InputUpdate();
     
         if (gNewKeys & 0x0040) {
-            Sound_PlaySE(gUnknown_087F7920, 2);
+            Sound_PlaySE(&gUnknown_087F7920, 2);
             if(spC) {
                 spC--;
             } else {
                 spC = (gUnknown_02000AD4) ? 2 : 1;
             }
         } else if (gNewKeys & 0x0080) { // _080011A8
-            Sound_PlaySE(gUnknown_087F7920, 2);
+            Sound_PlaySE(&gUnknown_087F7920, 2);
             if(spC < 2 && gUnknown_02000AD4) {
                 spC++;
             } else if (!spC) {

@@ -24,6 +24,7 @@ extern struct MusicPlayerInfo gUnknown_0201B580;
 extern u16 gUnknown_03007FF8;
 
 extern void sub_801A424(void*);
+extern void sub_801A41C(void*);
 extern void m4aSoundMain(void);
 extern void SoundVSync_rev01(void);
 
@@ -54,7 +55,7 @@ void stub_08003A58(void) {
 
 }
 
-void Sound_PlayMusic(struct SongHeader *songHeader) {
+void Sound_PlayMusic(struct SongHeader *songHeader, int musicPlayer) {
     if (g_MusicEnabled) {
         if (songHeader != NULL) {
             MPlayStart(&gUnknown_0201B4B0, songHeader);
