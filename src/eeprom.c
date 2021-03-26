@@ -73,16 +73,16 @@ u16 SetEepromTimerIntr(u8 timerNo, u32 *timerPtr) {
 }
 
 void StartEepromTimer(u16* maxTime) {
-	shelt_ime=REG_IME;
-	REG_IME=0;
-	*(timerReg+1)=0;
+    shelt_ime=REG_IME;
+    REG_IME=0;
+    *(timerReg+1)=0;
     REG_IF=(8<<timer_No);
-	REG_IE|=(8<<timer_No);
-	timeoutFlag=0;
-	timer_Count=*maxTime++;
-	*timerReg++=*maxTime++;
-	*timerReg--=*maxTime++;
-	REG_IME=1;
+    REG_IE|=(8<<timer_No);
+    timeoutFlag=0;
+    timer_Count=*maxTime++;
+    *timerReg++=*maxTime++;
+    *timerReg--=*maxTime++;
+    REG_IME=1;
 }
 
 void StopEepromTimer(void) {
