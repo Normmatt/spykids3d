@@ -101,6 +101,9 @@ SUBDIRS  := $(sort $(dir $(OBJS)))
 $(shell mkdir -p $(SUBDIRS))
 
 $(C_BUILDDIR)/m4a.o: CC1 := tools/agbcc/bin/old_agbcc
+$(C_BUILDDIR)/eeprom.o: CC1 := tools/agbcc/bin/old_agbcc
+$(C_BUILDDIR)/eeprom.o: CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -O1 -fhex-asm -g
+$(C_BUILDDIR)/eeprom_new.o: CC1FLAGS := -mthumb-interwork -Wimplicit -Wparentheses -O1 -fhex-asm -g
 
 
 #### Main Rules ####

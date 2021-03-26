@@ -1052,12 +1052,12 @@ gUnknown_087F7BA4:
 gUnknown_087F7BC0:
     .incbin "baserom.gba", 0x007F7BC0, 0x18
 
-    .global eeprom_list
-eeprom_list:
+    .global gEEPROMConfig512
+gEEPROMConfig512:
     .incbin "baserom.gba", 0x007F7BD8, 0xC
 
-    .global gUnknown_087F7BE4
-gUnknown_087F7BE4:
+    .global gEEPROMConfig8k
+gEEPROMConfig8k:
     .incbin "baserom.gba", 0x007F7BE4, 0xC
 
     .global gUnknown_087F7BF0

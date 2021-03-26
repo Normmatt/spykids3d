@@ -40,12 +40,14 @@ SECTIONS
         asm/code.o(.text);
         src/main.o(.text);
         asm/code_1_2.o(.text);
+        asm/string.o(.text);
         src/sound.o(.text);
         asm/code_2.o(.text);
         asm/m4a_asm.o(.text);
         src/m4a.o(.text);
         asm/libagbsyscall.o(.text);
-        asm/eeprom.o(.text);
+        src/eeprom.o(.text);
+        src/eeprom_new.o(.text);
         *libgcc.a:_call_via_rX.o(.text);
         *libgcc.a:_divsi3.o(.text);
         *libgcc.a:_dvmd_tls.o(.text);
