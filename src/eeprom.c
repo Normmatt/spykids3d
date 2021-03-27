@@ -1,4 +1,5 @@
 #include "global.h"
+#include "eeprom.h"
 
 /**
  * This file contains the decompiled source code for the AgbEeprom.o object
@@ -11,27 +12,6 @@
  * Because of this game's bizzare oddity, we must currently split the file into 2 files
  * (this file and eeprom_new) in order to account for this.
  */
-
-#define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
-
-typedef struct EEPROMConfig {
-    u32 unk_00;
-    u16 size;
-    u16 waitcnt;
-    u8 address_width;
-} EEPROMConfig;
-
-#define ALIGN8 __attribute__((aligned(8)))
-
-extern const EEPROMConfig* gEEPROMConfig; // eeprom
-extern const EEPROMConfig gEEPROMConfig512; // gEEPROMConfig512
-extern const EEPROMConfig gEEPROMConfig8k; // gUnknown_087F7BE4
-
-extern u16 timer_Count;
-extern u8 timeoutFlag;
-extern u8 timer_No;
-extern vu16* timerReg;
-extern u16 shelt_ime;
 
 u16 IdentifyEeprom(u16 sizeInKbit) {
     u16 ret;

@@ -5142,6 +5142,7 @@ _080065AC:
 _080065BC: .4byte gUnknown_02012688
 _080065C0: .4byte gUnknown_02012710
 
+@ Writes save game data to EEPROM?
 	thumb_func_start sub_80065C4
 sub_80065C4: @ 0x080065C4
 	push {r4, r5, r6, r7, lr}
@@ -5305,6 +5306,7 @@ _08006704: .4byte 0x040000D4
 _08006708: .4byte gUnknown_02013140
 _0800670C: .4byte 0x85000080
 
+@ Might load save data from EEPROM
 	thumb_func_start sub_8006710
 sub_8006710: @ 0x08006710
 	push {r4, r5, r6, r7, lr}

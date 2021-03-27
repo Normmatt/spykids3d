@@ -1,32 +1,5 @@
 #include "global.h"
-
-#define ARRAY_COUNT(array) (sizeof(array) / sizeof((array)[0]))
-
-typedef struct EEPROMConfig {
-    u32 unk_00;
-    u16 size;
-    u16 waitcnt;
-    u8 address_width;
-} EEPROMConfig;
-
-#define ALIGN8 __attribute__((aligned(8)))
-
-extern const EEPROMConfig* gEEPROMConfig; // eeprom
-extern const EEPROMConfig gEEPROMConfig512; // gEEPROMConfig512
-extern const EEPROMConfig gEEPROMConfig8k; // gUnknown_087F7BE4
-
-extern u16 timer_Count;
-extern u8 timeoutFlag;
-extern u8 timer_No;
-extern vu16* timerReg;
-extern u16 shelt_ime;
-
-#define REG_EEPROM (*(u16*)0xd000000)
-
-extern u16 gUnknown_087F7BF0;
-
-void StartEepromTimer(u16* maxTime);
-void StopEepromTimer(void);
+#include "eeprom.h"
 
 // See the description in eeprom.c for the explanation for the file split.
 
@@ -49,7 +22,7 @@ u16 ReadEepromDword(u16 address, u16 *data) {
     u16 value;
 
     if (address >= gEEPROMConfig->size) {
-        return 0x80FF; // EEPROM_OUT_OF_RANGE
+        return EEPROM_OUT_OF_RANGE;
     } else {
         ptr = buffer;
         // setup address
@@ -64,8 +37,8 @@ u16 ReadEepromDword(u16 address, u16 *data) {
         // read request
         *(ptr--) = 1;
         *ptr = 1;
-        Dma3Transmit(&buffer, (void*)0xD000000, (gEEPROMConfig->address_width + 3));
-        Dma3Transmit((void*)0xd000000, &buffer, 0x44);
+        Dma3Transmit(&buffer, REG_ADDR_EEPROM, (gEEPROMConfig->address_width + 3));
+        Dma3Transmit(REG_ADDR_EEPROM, &buffer, 0x44);
         // 4 bit junk
         ptr = buffer + 4;
         data += 3;
@@ -90,7 +63,7 @@ u16 ProgramEepromDword(u16 address, const u16 *data) {
     u16 retval;
 
     if (address >= gEEPROMConfig->size)
-        return 0x80FF;
+        return EEPROM_OUT_OF_RANGE;
     
     // ugly ptr math required for OK
     ptr = (u16 *)(0x42 + (u32)&buffer + (u32)(gEEPROMConfig->address_width << 1) + 0x42);
@@ -118,14 +91,14 @@ u16 ProgramEepromDword(u16 address, const u16 *data) {
     retval = 0;
 
     while(1) {
-        if(*(vu16 *)&REG_EEPROM & 1) {
+        if(REG_EEPROM & 1) {
             break;
         }
         if (!timeoutFlag) {
             continue;
         }
-        if(!(*(vu16 *)&REG_EEPROM & 1)) {
-            retval = 0xC001;
+        if(!(REG_EEPROM & 1)) {
+            retval = EEPROM_WRITE_FAIL;
         }
         break;
     }
@@ -140,13 +113,13 @@ u16 VerifyEepromDword(u16 address, u16 *data) {
     u16 retvar = 0;
 
     if (address >= gEEPROMConfig->size)
-        return 0x80FF;
+        return EEPROM_OUT_OF_RANGE;
 
     ReadEepromDword(address, buffer);
     ptr = buffer;
     for (i = 0; i < 4; i++) {
         if(*data++ != *ptr++) {
-            retvar = 0x8000;
+            retvar = EEPROM_VERIFY_FAIL;
             break;
         }
     }
