@@ -776,48 +776,68 @@ gUnknown_08742500:
 MPlyJmpTbl:
     .incbin "baserom.gba", 0x00742630, 0x90
 
-    .global ScaleTable
-ScaleTable:
+    .global gScaleTable
+gScaleTable:
     .incbin "baserom.gba", 0x007426C0, 0xB4
 
-    .global FreqTable
-FreqTable:
+    .global gFreqTable
+gFreqTable:
     .incbin "baserom.gba", 0x00742774, 0x30
 
-    .global gUnknown_087427A4
-gUnknown_087427A4:
+    .global gPcmSamplesPerVBlankTable
+gPcmSamplesPerVBlankTable:
     .incbin "baserom.gba", 0x007427A4, 0x18
 
-    .global gUnknown_087427BC
-gUnknown_087427BC:
+    .global gCgbScaleTable
+gCgbScaleTable:
     .incbin "baserom.gba", 0x007427BC, 0x84
 
-    .global gUnknown_08742840
-gUnknown_08742840:
+    .global gCgbFreqTable
+gCgbFreqTable:
     .incbin "baserom.gba", 0x00742840, 0x18
 
-    .global gUnknown_08742858
-gUnknown_08742858:
+    .global gNoiseTable
+gNoiseTable:
     .incbin "baserom.gba", 0x00742858, 0x3C
 
-    .global gUnknown_08742894
-gUnknown_08742894:
+    .global gCgb3Vol
+gCgb3Vol:
     .incbin "baserom.gba", 0x00742894, 0x10
 
     .global gUnknown_087428A4
 gUnknown_087428A4:
     .incbin "baserom.gba", 0x007428A4, 0x34
 
-    .global xcmd_tbl
-xcmd_tbl:
+    .global gXcmdTable
+gXcmdTable:
     .incbin "baserom.gba", 0x007428D8, 0xE9C
 
-    .global mplay_table
-mplay_table:
-    .incbin "baserom.gba", 0x00743774, 0x30
+@ Some of these music track pointers dont agree with the size of a music track.
+@ TODO: Any shared memory?
+    .global gMPlayTable
+gMPlayTable:
+    .4byte gUnknown_0201B4B0   
+    .4byte 0x02000000   
+    .2byte 8
+    .2byte 0
 
-    .global song_table
-song_table:
+    .4byte gUnknown_0201B4F0
+    .4byte 0x02000280
+    .2byte 1
+    .2byte 1
+
+    .4byte gUnknown_0201B530
+    .4byte 0x020002D0
+    .2byte 1
+    .2byte 1
+
+    .4byte gUnknown_0201B580
+    .4byte 0x02000320
+    .2byte 1
+    .2byte 1
+
+    .global gSongTable
+gSongTable:
     .incbin "baserom.gba", 0x007437A4, 0xB1B68
 
     .global gUnknown_087F530C
@@ -1032,12 +1052,12 @@ gUnknown_087F7BA4:
 gUnknown_087F7BC0:
     .incbin "baserom.gba", 0x007F7BC0, 0x18
 
-    .global eeprom_list
-eeprom_list:
+    .global gEEPROMConfig512
+gEEPROMConfig512:
     .incbin "baserom.gba", 0x007F7BD8, 0xC
 
-    .global gUnknown_087F7BE4
-gUnknown_087F7BE4:
+    .global gEEPROMConfig8k
+gEEPROMConfig8k:
     .incbin "baserom.gba", 0x007F7BE4, 0xC
 
     .global gUnknown_087F7BF0
